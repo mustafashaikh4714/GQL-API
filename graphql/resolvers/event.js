@@ -10,7 +10,10 @@ export default {
     }))
   },
 
-  createEvent: async ({ eventInput }) => {
+  createEvent: async ({ eventInput }, req) => {
+    if (!req.isAuth) {
+      throw new Error('UnAuthenticated!')
+    }
     const eventAlreadyExist = await Event.findOne({
       title: eventInput.title
     }).lean()
@@ -21,7 +24,7 @@ export default {
       description: eventInput.description,
       price: +eventInput.price,
       date: eventInput.date,
-      creator: '5eff7bef39b1874d91ccb10d'
+      creator: req.userId
     })
     return event.save()
   }
