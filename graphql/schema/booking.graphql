@@ -1,0 +1,17 @@
+scalar Date
+type Booking {
+  _id: ID!
+  user: User!
+  event: Event!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Query {
+  bookings: [Booking!]!
+}
+
+type Mutation {
+  bookEvent(eventId: ID!): Booking!
+  cancelBooking(bookingId: ID!): Event!
+}
